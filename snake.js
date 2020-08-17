@@ -5,6 +5,7 @@ window.onload = function (){
     document.addEventListener("keydown", keyPush);  //Agregando evento al docmumento, funcion de teclas para moverse
     setInterval(juego, 1000/15);    //Llamar la funcion juego 15 mseg
 }
+
 //velocidad en X y Y
 xv = 0;
 yv = 0;
@@ -21,7 +22,7 @@ ay = 15;
 //Longitud 
 trail = [];
 //Tamaño con el que inicia la serpiente
-tail = 3; 
+tail = 2; 
 //Puntuacion
 var score = 0;
 function juego(){
@@ -48,10 +49,12 @@ function juego(){
     ctx.fillStyle = "lime";
     for(var i = 0; i < trail.length; i++){
         ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 4, gs - 4);
-        //Condicion para reiniciar la serpiente 
-        if(trail[i].x == px && trail[i].y == py){
-            tail = 3;
-        }
+        //Condicion para reiniciar la serpiente
+        if(trail[i].x == px && trail[i].y == py && score > 0){
+            window.alert('Perdiste! \nPuntaje de: ' + score + ' manzanas');
+            location.reload();
+            tail = 2;
+        } 
     }
 
     trail.push({x:px, y:py});
@@ -70,24 +73,31 @@ function juego(){
     ctx.fillStyle = "red";
     ctx.fillRect(ax * gs, ay * gs, gs - 4, gs - 4);
 }
+
+
+
 //Esta funcion detecta el pulsado de teclas y controla la serpiente
-function keyPush(evt){
-    switch(evt.keyCode){
-        case 37:
-            xv = -1;
-            yv = 0;
-            break;
-        case 38:
-            xv = 0;
-            yv = -1;
-            break;
-        case 39:
-            xv = 1;
-            yv = 0;
-            break;
-        case 40: 
-            xv = 0;
-            yv = 1;
-            break;
+var direccion;
+function keyPush(event){
+    if(event.keyCode == 37 && direccion != "dere"){
+        direccion = "izqui";
+        xv = -1;
+        yv = 0;
+    }
+    if(event.keyCode == 38 && direccion != "abajo"){
+        direccion = "arriba";
+        xv = 0;
+        yv = -1;
+    }
+    if(event.keyCode == 39 && direccion != "izqui"){
+        direccion = "dere";
+        xv = 1;
+        yv = 0;
+    }
+    if(event.keyCode == 40 && direccion != "arriba"){
+        direccion = "abajo";
+        xv = 0;
+        yv = 1;
     }
 }
+
