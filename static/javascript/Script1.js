@@ -4,34 +4,66 @@ var alto = 400;
 var altutaJ = 100;
 var rbola=40;
 var tamJ = 80;
-var imgJugador, imgOponente, imgBola,imgfondo;
-var canvas, ctx;
-var score = [0, 0];
-var jugando = false;
-function cargaImagenes() {
-    imgJugador = document.getElementById("jugador");
-    imgOponente = document.getElementById("oponente");
-    imgBola = document.getElementById("bola");
-    imgfondo = document.getElementById("fondo");
-}
-function dibujarMarcador() {
-    ctx.font = "50px Georgia";
-    ctx.fillText(score[0] + " - " + score[1], 355, 50);
-}
+var canvas;
+var ctx;
+//Objeto de Juego
+var juego = {   
+    imgJugador: document.getElementById("jugador"),
+    imgOponente: document.getElementById("oponente"),
+    imgBola: document.getElementById("bola"),
+    imgfondo: document.getElementById("fondo"),
+    score: [0, 0],
+    jugando: false,
+    iniciar: function () {      //Funcion para inicializar el tablero
+        canvas = document.getElementById('cv');
+        ctx = canvas.getContext('2d');
+        this.dibujarMarcador();
+    },
+    aumentaScore: function (jp) {   //1 si es el jugador y 2 si es el oponente
+        if (jp == 1) {
+            this.score[0]++;
+        } else {
+            this.score[1]++;
+        }
+    },
+    //Funciones de dibujo
+    borrarCanvas: function () {
+        canvas.width = ancho;
+        canvas.height = alto;
+    },
+    dibujarFondo: function () {
+        ctx.drawImage(this.imgfondo, 0, 0, ancho, alto);
+    },
+    dibujaJugador: function () {
+        ctx.drawImage(this.imgJugador, 0, Jugador.posy, tamJ, altutaJ);
+    },
+    dibujaOponente: function () {
+        ctx.drawImage(this.imgOponente, ancho - tamJ, Oponente.posy, tamJ, altutaJ);
+    },
+    dibujarBalon: function () {
+        ctx.drawImage(this.imgBola, Ball.pos[0], Ball.pos[1], rbola, rbola);
+    },
+    dibujarMarcador: function () {
+        ctx.font = "50px Georgia";
+        ctx.fillText(this.score[0] + " - " + this.score[1], 355, 50);
+    }
+};
+//Objeto Ball
 var Ball = {
     pos: [380, 100],
     vel: [0, 0],
     velM: 2,
     estadoH: true,   //True derecha, False izquierda
     estadoV: true,  //True arriba, False abajo
+    //Función encargada de mocer el balon
     mover: function () {
-        if ((this.pos[0] <= 0 || this.pos[0] + rbola >= ancho) && jugando==true) {
+        if ((this.pos[0] <= 0 || this.pos[0] + rbola >= ancho) && juego.jugando==true) {
             if (this.pos[0] <= 0) {
-                score[1]++;
+                juego.aumentaScore(2);
             } else {
-                score[0]++;
+                juego.aumentaScore(1)
             }
-            jugando = false;
+            juego.jugando = false;
         } else {
             if (this.pos[1] == 0 && this.estadoV == true) {
                 this.estadoV = false
@@ -61,9 +93,11 @@ var Ball = {
             }
         }
     },
+    //Funcion de aumentar la velocidad
     aumentarVel: function () {
         this.velM+=2;
     },
+    //Función para reiniciar la pelota
     inicio: function (direccionH, direccionV) {
         this.pos = [380, 100];
         switch (direccionH) {
@@ -84,12 +118,13 @@ var Ball = {
         }
     }
 };
+//Objeto Jugador
 var Jugador =  {
      posy:0,
      vy : 8,
     mover: function (direccion) {
         //1 arriba y -1 abajo
-        if (jugando == true) {
+        if (juego.jugando == true) {
             switch (direccion) {
                 case 1:
                     if (this.posy - this.vy > 0) {
@@ -108,13 +143,13 @@ var Jugador =  {
     }
 
 }
-
+//Objeto Oponente
 var Oponente =  {
     posy:0,
     vy : 5,
     mover: function(direccion) {
         //1 arriba y -1 abajo
-        if (jugando == true) {
+        if (juego.jugando == true) {
             switch (direccion) {
                 case 1:
                     console.log("Entro arriba");
@@ -133,6 +168,7 @@ var Oponente =  {
             }
         }
     },
+    //Función encargada de mover el oponente
     seguir: function () {
         if (Ball.pos[1] <= this.posy) {
             this.mover(1);
@@ -142,30 +178,7 @@ var Oponente =  {
     }
 };
 
-
-function inicializa() {
-    canvas = document.getElementById('cv');
-    ctx = canvas.getContext('2d');
-    cargaImagenes();
-    dibujarMarcador();
-}
-function borraCanvas() {
-    canvas.width = ancho;
-    canvas.height = alto;
-}
-function dibujarFondo() {
-    ctx.drawImage(imgfondo, 0, 0, ancho, alto);
-}
-function dibujaJugador() {
-    ctx.drawImage(imgJugador, 0, Jugador.posy, tamJ, altutaJ);
-}
-function dibujaOponente() {
-    ctx.drawImage(imgOponente, ancho - tamJ, Oponente.posy, tamJ, altutaJ);
-}
-function dibujarBalon() {
-    ctx.drawImage(imgBola,Ball.pos[0], Ball.pos[1], rbola, rbola);
-}
-inicializa();
+juego.iniciar();
 //Bucle principal
 var FPS = 60;
 var contador = 0;
@@ -174,14 +187,13 @@ setInterval(function () { //cada cuanto se debe ejecutar una funcion en un inter
 }, 1000 / FPS);
 
 function principal() {
-    if (jugando == false) {
+    if (juego.jugando == false) {
         setTimeout(function () {
-            jugando = true;
-            dibujarMarcador();
+            juego.jugando = true;
+            juego.dibujarMarcador();
             var num1 = Math.floor(Math.random() * (3 - 1)) + 1;
             var num2 = Math.floor(Math.random() * (3 - 1)) + 1;
             Ball.inicio(num1,num2);
-            jugando = true;
         }, 1500);
     }
     /* para aumentar la velocidad
@@ -190,15 +202,16 @@ function principal() {
         console.log("Se aumento la velocidad");
     }
     */
-    borraCanvas();
-    dibujarFondo();
-    dibujarMarcador();
+    juego.borrarCanvas;
+    juego.dibujarFondo();
+    juego.dibujarMarcador();
     Ball.mover();
-    dibujarBalon();
-    dibujaJugador();
+    juego.dibujarBalon();
+    juego.dibujaJugador();
     Oponente.seguir();
-    dibujaOponente();
+    juego.dibujaOponente();
 }
+//Lector de teclas
 document.addEventListener("keydown", function (evento) {
     switch (evento.keyCode) {
         case 65:
