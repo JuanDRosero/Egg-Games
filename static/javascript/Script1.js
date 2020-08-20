@@ -62,17 +62,18 @@ var Ball = {
                 juego.aumentaScore(2);
             } else {
                 juego.aumentaScore(1)
+                Oponente.aumentarVel();
             }
             juego.jugando = false;
         } else {
-            if (this.pos[1] == 0 && this.estadoV == true) {
+            if (this.pos[1] <= 0 && this.estadoV == true) {
                 this.estadoV = false
-            } else if (this.pos[1] + rbola == alto && this.estadoV == false) {
+            } else if (this.pos[1] + rbola >= alto && this.estadoV == false) {
                 this.estadoV = true;
             }
             if (this.pos[0] <= tamJ && this.pos[1] >= Jugador.posy && this.pos[1] <= Jugador.posy + altutaJ && this.estadoH == false) {
                 this.estadoH = true;
-            } else if (this.pos[0] == ancho - tamJ && this.pos[1] <= Oponente.posy && this.pos[1] <= Oponente.posy + altutaJ && this.estadoH == true) {
+            } else if (this.pos[0] == ancho - tamJ && this.pos[1] >= Oponente.posy && this.pos[1] <= Oponente.posy + altutaJ && this.estadoH == true) {
                 this.estadoH = false;
             }
             /////////////////Movimiento Horizontal/////////////////////////////////////
@@ -146,23 +147,21 @@ var Jugador =  {
 //Objeto Oponente
 var Oponente =  {
     posy:0,
-    vy : 5,
+    vy : 3,
     mover: function(direccion) {
         //1 arriba y -1 abajo
         if (juego.jugando == true) {
             switch (direccion) {
                 case 1:
-                    console.log("Entro arriba");
                     if (this.posy - this.vy > 0) {
                         this.posy -= this.vy;
-                        console.log("Entro arriba");
                     }
                     break;
                 case -1:
                     
                     if (this.posy + this.vy < alto - altutaJ) {
                         this.posy += this.vy;
-                        console.log("Entro a abajo");
+
                     }
                     break;
             }
@@ -170,18 +169,21 @@ var Oponente =  {
     },
     //Función encargada de mover el oponente
     seguir: function () {
-        if (Ball.pos[1] <= this.posy) {
+        if (Ball.pos[1] < this.posy) {
             this.mover(1);
-        } else if (Ball.pos[1] >= this.posy + tamJ) {
+        } else if (Ball.pos[1] > this.posy + tamJ) {
             this.mover(-1);
         }
+    },
+    aumentarVel: function () {
+        this.vy += 2;
     }
 };
 
 juego.iniciar();
 //Bucle principal
 var FPS = 60;
-var contador = 0;
+var contador = 1;
 setInterval(function () { //cada cuanto se debe ejecutar una funcion en un intervalo de tiempo.
     principal();
 }, 1000 / FPS);
@@ -196,12 +198,10 @@ function principal() {
             Ball.inicio(num1,num2);
         }, 1500);
     }
-    /* para aumentar la velocidad
     if (contador % 10000 == 0) {
         Ball.aumentarVel();
         console.log("Se aumento la velocidad");
     }
-    */
     juego.borrarCanvas;
     juego.dibujarFondo();
     juego.dibujarMarcador();
@@ -210,6 +210,7 @@ function principal() {
     juego.dibujaJugador();
     Oponente.seguir();
     juego.dibujaOponente();
+    contador++;
 }
 //Lector de teclas
 document.addEventListener("keydown", function (evento) {
