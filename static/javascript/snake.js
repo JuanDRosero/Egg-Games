@@ -28,7 +28,9 @@ var score = 0;
 function juego(){
     px += xv;
     py += yv;
+    //Variable para el puntaje del juego
     var text = "Score: " + score;
+    //Impresion del punja (actualizar marcador)
     puntaje.innerHTML = text;
     //Los if permiten recorer en circulos en mundo
     if(px < 0){
@@ -43,12 +45,13 @@ function juego(){
     if(py > tc - 1){
         py = 0;
     }
+    //Color del canvas 
     ctx.fillStyle = "black";
-    ctx.fillRect(0, 0, canv.width, canv.height);
+    ctx.fillRect(0, 0, canv.width, canv.height);  //Dibuja el canvas
 
     ctx.fillStyle = "lime";
     for(var i = 0; i < trail.length; i++){
-        ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 4, gs - 4);
+        ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2.5, gs - 2.5);
         //Condicion para reiniciar la serpiente
         if(trail[i].x == px && trail[i].y == py && score > 0){
             window.alert('Perdiste! \nPuntaje de: ' + score + ' manzanas');
@@ -56,22 +59,23 @@ function juego(){
             tail = 2;
         } 
     }
-
+    //Inserta los elementos
     trail.push({x:px, y:py});
     while(trail.length > tail){
-        trail.shift();
+        trail.shift(); //Elimina un elemento 
     }
 
     //Este if es para la comida 
     if(ax == px && ay == py){
-        tail++;
-        score++;
+        tail++;   //Aumenta el tamaño de la serpiente 
+        score++;  //Aumenta el puntaje 
+        //Posicion el x, y para generar la comida 
         ax = Math.floor(Math.random() * tc);
         ay = Math.floor(Math.random() * tc);
     }
 
     ctx.fillStyle = "red";
-    ctx.fillRect(ax * gs, ay * gs, gs - 4, gs - 4);
+    ctx.fillRect(ax * gs, ay * gs, gs - 2.5, gs - 2.5);
 }
 
 
@@ -100,4 +104,3 @@ function keyPush(event){
         yv = 1;
     }
 }
-
