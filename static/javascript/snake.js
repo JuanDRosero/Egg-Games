@@ -15,7 +15,7 @@ py = 10;
 //tamaño de la cuadricula de la serpiente
 gs = 20;
 //Tamaño mundo para desplazar 
-tc = 35;
+tc = 25;
 //Posicion comida
 ax = 15;
 ay = 15;
