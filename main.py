@@ -22,6 +22,9 @@ def Ping():
 @app.route("/Snake")
 def Snake():
     return render_template("snakePagina.html")
+@app.route("/Skate")
+def Skate():
+    return render_template("jindex.html")
 
 if(__name__=="__main__"):
     app.run()

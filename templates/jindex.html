@@ -1,22 +1,24 @@
-Ôªø<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <!-- metas necesarios para el Bootstrap-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <title>Skate</title>
     <link type="text/css" href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" media="" />
-    <title>Snake</title>
+    <script src="{{ url_for('static', filename='javascript/juego.js') }}"></script>
 </head>
-<body>
+<body onload="inicializa()">
     <header>
         <div class="bg-dark collapse show" id="navbarHeader" style="">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-8 col-md-7 py-4">
-                        <h4 class="text-white">Descripci√≥n</h4>
-                        <p class="text-muted">La pagina Egg Game es una pagina web de videojuegos clasicos y retor creada por tres estudiantes de la universidad Distrital Francisco Jos√© de Caldas, en donde podra encontrar varios juegos retro y antiguos que le har√°n pasar un buen rato</p>
+                        <h4 class="text-white">DescripciÛn</h4>
+                        <p class="text-muted">La pagina Egg Game es una pagina web de videojuegos clasicos y retor creada por tres estudiantes de la universidad Distrital Francisco JosÈ de Caldas, en donde podra encontrar varios juegos retro y antiguos que le har·n pasar un buen rato</p>
                     </div>
                     <div class="col-sm-4 offset-md-1 py-4">
                         <h4 class="text-white">Contacto</h4>
@@ -47,15 +49,37 @@
     </header>
     <main role="main">
         <div class="contenedor">
-            <canvas id="mapa" width="500" height="500"></canvas><br />
-            <h1 id="puntaje"></h1>
+            <canvas id="canvas" width="800" height="400" style="border: 5px solid #F39C49 "></canvas>
+            <div>Icons from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+            <div>Avatar from <a href="https://charactercreator.org/" title="charactercreator">charactercreator.org</a></div>
         </div>
     </main>
-    <script src="{{ url_for('static', filename='javascript/snake.js') }}"></script>
+    <img id="ft" src="{{ url_for('static', filename='images/ft.png') }}" style="display: none;" />
+    <img id="win" src="{{ url_for('static', filename='images/win.png') }}" style="display: none;" />
+    <img id="run" src="{{ url_for('static', filename='images/run.png') }}" style="display: none;" />
+    <img id="trash" src="{{ url_for('static', filename='images/trash.png') }}" style="display: none;" />
+    <img id="t1" src="{{ url_for('static', filename='images/t1.png.jpg') }}" style="display: none;" />
+    <img id="fail" src="{{ url_for('static', filename='images/fail.png') }}" style="display: none;" />
+    <img id="floor" src="{{ url_for('static', filename='images/floor.png') }}" style="display: none;" />
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </body>
-</html>
+</html>	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
