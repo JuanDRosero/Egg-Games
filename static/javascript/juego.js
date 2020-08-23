@@ -23,7 +23,7 @@ document.addEventListener('keydown',function(evento){
 var ancho=800;
 var alto=400;
 var canvas,ctx;
-var floorg={x:0,y:310}
+var floorg={x:0,y:310};
 var imgbarrier,imgturbine,imgpark,imgswing,imgsuelo,imfrun,imgup,imgfail,imgwin,imgft;
 var floor=250;
 var tpaolo={y: floor,vy: 0,gravity:2,jump:28, vymax:9,jumping: false};
@@ -32,13 +32,13 @@ var tbarrier={x:ancho+100 , y:floor};
 var decorate={x:0 , y:floor-130};
 
 function loadImage() {
-	imgft = documente.getElementById("ft");
-	imgwin = documente.getElementById("win");
-	imgrun = documente.getElementById("run");
-	imgbarrie = documente.getElementById("trash");
-	imgt1 = documente.getElementById("t1");
-	imgsuelo = documente.getElementById("fail");
-	imgfail = documente.getElementById("floor");
+	imgft = document.getElementById('yolo');
+	imgwin = document.getElementById('win');
+	imgrun = document.getElementById('run');
+	imgbarrier = document.getElementById('trash');
+	imgt1 = document.getElementById('t1');
+	imgsuelo = document.getElementById('fail');
+	imgfail = document.getElementById('floor');
 }
 
 function inicializa(){
@@ -56,25 +56,23 @@ function drawPaolo(){
 	ctx.drawImage(imgrun,0,0,512,512,50,tpaolo.y,70,70);
 }
 function drawBarrier(){
-	ctx.drawImage(imgbarrier,0,0,512,512,tbarrier.x,tbarrier.y,70,70)
+	ctx.drawImage(imgbarrier,0,0,512,512,tbarrier.x,tbarrier.y,70,70);
 }
 function drawDecorate(){
-	ctx.drawImage(imgt1,decorate.x,0,11776,512,0,decorate.y,4710,205)
+	ctx.drawImage(imgt1,decorate.x,0,11776,512,0,decorate.y,4710,205);
 }
 function drawFloor(){
-	ctx.drawImage(imgfail,floorg.x,0,830,151,0,floorg.y,850,90)
+	ctx.drawImage(imgfail,floorg.x,0,830,151,0,floorg.y,850,90);
 }
-/*function drawFail(){
-	ctx.drawImage(imgfail,0,0,1118,523,0,400,800,400)
-}*/
+
 function drawFail(){
-	ctx.drawImage(imgsuelo,0,0,1118,523,0,0,800,400)
+	ctx.drawImage(imgsuelo,0,0,1118,523,0,0,800,400);
 }
 function drawWin(){
-	ctx.drawImage(imgwin,0,0,1118,523,0,0,800,400)
+	ctx.drawImage(imgwin,0,0,1118,523,0,0,800,400);
 }
 function drawinst(){
-	ctx.drawImage(imgft,0,0,948,535,0,0,800,400)
+	ctx.drawImage(imgft,0,0,948,535,0,0,800,400);
 }
 
 function moveBarrier(){
@@ -106,10 +104,10 @@ function jumpout(){
 
 function gravity(){
 	if(tpaolo.jumping==true){
-		imgrun.src='img/up.png';
+		imgrun = document.getElementById('up');
 		if(tpaolo.y-tpaolo.vy-tpaolo.gravity>floor){
 			tpaolo.jumping=false;
-			imgrun.src='img/run.png';
+			imgrun = document.getElementById('run');
 			tpaolo.vy=0;
 			tpaolo.y=floor;
 		}else{
@@ -171,11 +169,3 @@ function principal(){
 setInterval(function(){
 	principal();
 	},1000/70);
-
-
-
-
-
-
-
-
