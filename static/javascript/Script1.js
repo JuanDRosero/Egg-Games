@@ -1,3 +1,4 @@
+//Programacion imperativa orientada a objetos
 // JavaScript source code
 var ancho = 800;
 var alto = 400;
@@ -52,7 +53,7 @@ var juego = {
 var Ball = {
     pos: [380, 100],
     vel: [0, 0],
-    velM: 2,
+    velM: 2,        //pixeles de deplazamiento
     estadoH: true,   //True derecha, False izquierda
     estadoV: true,  //True arriba, False abajo
     //Función encargada de mocer el balon
@@ -62,15 +63,17 @@ var Ball = {
                 juego.aumentaScore(2);
             } else {
                 juego.aumentaScore(1)
-                Oponente.aumentarVel();
+                Oponente.aumentarVel(); //Aumenta la dificultad del oponente
             }
             juego.jugando = false;
         } else {
+            //Valida rebote en techo y suelo
             if (this.pos[1] <= 0 && this.estadoV == true) {
                 this.estadoV = false
             } else if (this.pos[1] + rbola >= alto && this.estadoV == false) {
                 this.estadoV = true;
             }
+            //Valida rebote en jugador o oponente
             if (this.pos[0] <= tamJ && this.pos[1] >= Jugador.posy && this.pos[1] <= Jugador.posy + altutaJ && this.estadoH == false) {
                 this.estadoH = true;
             } else if (this.pos[0] == ancho - tamJ && this.pos[1] >= Oponente.posy && this.pos[1] <= Oponente.posy + altutaJ && this.estadoH == true) {
@@ -183,7 +186,7 @@ var Oponente =  {
 juego.iniciar();
 //Bucle principal
 var FPS = 60;
-var contador = 1;
+var contador = 1;   //determina cuando subir la dificultad del juego 
 setInterval(function () { //cada cuanto se debe ejecutar una funcion en un intervalo de tiempo.
     principal();
 }, 1000 / FPS);
@@ -198,7 +201,7 @@ function principal() {
             Ball.inicio(num1,num2);
         }, 1500);
     }
-    if (contador % 10000 == 0) {
+    if (contador % 1000 == 0) {
         Ball.aumentarVel();
         console.log("Se aumento la velocidad");
     }
@@ -215,10 +218,10 @@ function principal() {
 //Lector de teclas
 document.addEventListener("keydown", function (evento) {
     switch (evento.keyCode) {
-        case 65:
+        case 65:        //A
             Jugador.mover(1);
             break;
-        case 90:
+        case 90:        //Z
             Jugador.mover(-1);
             break;
     }

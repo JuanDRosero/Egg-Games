@@ -7,6 +7,7 @@ Created on Mon Aug 17 12:58:43 2020
         Juan David Rosero Torres
 """
 
+#Programacion imperativa procedimental
 from flask import Flask
 from flask import render_template
 

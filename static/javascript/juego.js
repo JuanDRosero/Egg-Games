@@ -1,8 +1,8 @@
 //adicion de eventos para lectura de tecla de inicio, reinicio y  juego
 document.addEventListener('keydown',function(evento){
-	if(evento.keyCode==38){
+	if(evento.keyCode==38){		//Flecha hacia arriba
 		jumpout();
-	}if(evento.keyCode==13){
+	}if(evento.keyCode==13){	//Enter
 		console.log("enter");
 		if(level.dead==true){
 			tbarrier.x=ancho+100;

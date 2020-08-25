@@ -1,4 +1,5 @@
-window.onload = function (){
+//Paradigma scripting
+window.onload = function () {
     canv = document.getElementById("mapa")  //Tomamos el canvas del html
     puntaje = document.getElementById("puntaje");
     ctx = canv.getContext("2d");    
@@ -20,7 +21,7 @@ tc = 25;
 ax = 15;
 ay = 15;
 //Longitud 
-trail = [];
+trail = [];     //-> es una pila
 //Tamaño con el que inicia la serpiente
 tail = 2; 
 //Puntuacion
@@ -54,13 +55,13 @@ function juego(){
         ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2.5, gs - 2.5);
         //Condicion para reiniciar la serpiente
         if(trail[i].x == px && trail[i].y == py && score > 0){
-            window.alert('Perdiste! \nPuntaje de: ' + score + ' manzanas');
-            location.reload();
+            window.alert('Perdiste! \nPuntaje de: ' + score + ' manzanas'); //Alerta para pausar el juego
+            location.reload();                                              //Recarga la pagina
             tail = 2;
         } 
     }
     //Inserta los elementos
-    trail.push({x:px, y:py});
+    trail.push({x:px, y:py});           //Agranda el tamanio de la serpierte
     while(trail.length > tail){
         trail.shift(); //Elimina un elemento 
     }
