@@ -79,7 +79,11 @@ function drawWin(){
 function drawinst(){
 	ctx.drawImage(imgft,0,0,948,535,0,0,800,400);
 }
-
+//muestra en puntaje
+function drawScore() {
+        ctx.font = "50px Georgia";
+        ctx.fillText(level.score, 700, 50);
+    }
 //condiciona el movimiento del obstaculo
 function moveBarrier(){
 	if(tbarrier.x<-100){
@@ -153,6 +157,7 @@ function principal(){
 	if(level.ft==true){
 		drawinst();	
 	}else if(level.dead==false){
+		drawScore();
 		if(level.score>=1000){
 			console.log(level.score);
 			drawWin();			
