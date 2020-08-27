@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\static",
+    "\\static\\javascript",
+    "\\templates"
   ],
-  "SelectedNode": "\\snake.js",
+  "SelectedNode": "\\static\\javascript\\Script1.js",
   "PreviewInSolutionExplorer": false
 }

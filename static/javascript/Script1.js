@@ -76,7 +76,7 @@ var Ball = {
             //Valida rebote en jugador o oponente
             if (this.pos[0] <= tamJ && this.pos[1] >= Jugador.posy && this.pos[1] <= Jugador.posy + altutaJ && this.estadoH == false) {
                 this.estadoH = true;
-            } else if (this.pos[0] == ancho - tamJ && this.pos[1] >= Oponente.posy && this.pos[1] <= Oponente.posy + altutaJ && this.estadoH == true) {
+            } else if (this.pos[0] >= ancho - tamJ && this.pos[1] >= Oponente.posy && this.pos[1] <= Oponente.posy + altutaJ+3 && this.estadoH == true) {
                 this.estadoH = false;
             }
             /////////////////Movimiento Horizontal/////////////////////////////////////
